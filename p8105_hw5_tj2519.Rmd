@@ -4,7 +4,35 @@ output: github_document
 date: "2023-11-08"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+# Problem 0: load library
+```{r}
+library(tidyverse)
+
+```
+
+# Problem 1
+## create the new variable
+```{r}
+pro1_df = 
+  read_csv("data_p1/homicide-data.csv") %>% 
+  mutate(city_state = paste(city, state, sep = ", ")) %>% 
+  view()
+
+```
+
+## summarize dataset
+```{r}
+pro1_df = 
+  pro1_df %>% 
+  mutate(disposition = 
+           ifelse(disposition %in% c("Closed without arrest", "Open/No arrest"), "Unsolved homicides", "Solved homicides")) %>%
+  group_by(city_state, city, disposition) %>% 
+  summarize(obs = n())
+
+pro1_df %>% 
+  filter(city == "Baltimore") %>% 
+  pivot_wider(names_from = "disposition", values_from = "obs") %>% 
+  janitor::clean_names() 
+ 
 ```
 
