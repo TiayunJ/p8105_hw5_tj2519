@@ -20,7 +20,7 @@ pro1_df =
 
 ```
 
-## summarize dataset
+## summarize dataset & Baltimore
 ```{r}
 clean_df = pro1_df %>% 
   mutate(disposition = 
@@ -32,7 +32,7 @@ clean_df = pro1_df %>%
   mutate(total = sum(solved_homicides, unsolved_homicides))
 
 bal = clean_df %>% 
-  filter(city == "Baltimore")
+  filter(city_state == "Baltimore, MD")
   
 results = 
   prop.test(pull(bal, solved_homicides), pull(bal, total), conf.level = 0.95) %>% 
@@ -43,6 +43,29 @@ results =
 ```
 
 
+##for each city, calculate the prop
+```{r}
+prop = function(df) {
+  
+  results = 
+  prop.test(pull(df, solved_homicides), pull(df, total), conf.level = 0.95) %>% 
+  broom::tidy() %>% 
+  janitor::clean_names() %>% 
+  select(estimate, conf_low, conf_high)
+  
+  results
+}
+
+
+clean_df_nest =
+  nest(clean_df, data = solved_homicides:total) %>% 
+  mutate(results = map(data, prop)) %>% 
+  unnest(data) %>% 
+  unnest(results) %>% 
+  select(-solved_homicides)
+
+
+```
 
 
 # Problem 2
