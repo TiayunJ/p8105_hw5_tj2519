@@ -8,6 +8,21 @@ date: "2023-11-08"
 ```{r}
 library(tidyverse)
 
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
 ```
 
 # Problem 1
@@ -66,6 +81,18 @@ clean_df_nest =
 
 
 ```
+
+## plot
+```{r}
+clean_df_nest %>% 
+  mutate(city_state = forcats::fct_reorder(city_state, estimate)) %>% 
+  ggplot(aes(x = city_state, y = estimate, fill = city_state)) +
+  geom_bar(stat = "identity") +
+  geom_errorbar(aes(ymin = conf_low, ymax = conf_high))
+```
+
+
+
 
 
 # Problem 2
