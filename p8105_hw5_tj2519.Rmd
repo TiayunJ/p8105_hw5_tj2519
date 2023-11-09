@@ -16,7 +16,7 @@ library(tidyverse)
 pro1_df = 
   read_csv("data_p1/homicide-data.csv") %>% 
   mutate(city_state = paste(city, state, sep = ", ")) %>% 
-  mutate(city_state = str_replace(city_state,"Tulsa , AL", "Tulsa , OK"))
+  mutate(city_state = str_replace(city_state,"Tulsa, AL", "Tulsa, OK"))
 
 ```
 
@@ -29,14 +29,13 @@ clean_df = pro1_df %>%
   summarize(obs = n()) %>% 
   pivot_wider(names_from = "disposition", values_from = "obs") %>% 
   janitor::clean_names() %>% 
-  mutate(total = sum(solved_homicides, unsolved_homicides)) %>% view()
+  mutate(total = sum(solved_homicides, unsolved_homicides))
 
 bal = clean_df %>% 
-  filter(city == "Baltimore") %>% 
+  filter(city == "Baltimore")
   
-
 results = 
-  prop.test(pull(bal, solved_homicides), pull(bal, total)) %>% 
+  prop.test(pull(bal, solved_homicides), pull(bal, total), conf.level = 0.95) %>% 
   broom::tidy() %>% 
   janitor::clean_names() %>% 
   select(estimate, conf_low, conf_high)
