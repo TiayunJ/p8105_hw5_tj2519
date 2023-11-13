@@ -196,29 +196,21 @@ map(df, t_test_fxn)
 
 ```
 
-
-
-
-
-
-
 ```{r}
-test = function(true_mean) {
+return_est_p = function(true_mean) {
   
-  c = vector("list", 10)
-
-  for (i in 1:10) {
-  dataset = rnorm(30, mean = true_mean, sd = 5)
-  c[[i]] = dataset
-  }
+  map(1:10, ~ rnorm(30, mean = true_mean, sd = 5)) %>% 
+    map(., t_test_fxn) %>% 
+    bind_rows()
   
-  return(c)
 }
 
+my_tibble = 
+  tibble(a = 1:6) %>% 
+  mutate(data = map(a, return_est_p)) %>% 
+  unnest(data) %>% 
+  filter(p_value < 0.05) %>% view()
 
-test(1)
-
-map(c, t_test_fxn)
 
 ```
 
