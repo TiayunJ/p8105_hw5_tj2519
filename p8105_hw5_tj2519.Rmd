@@ -125,16 +125,22 @@ pro2_df =
 
 ##Tidy the dataframe, f manipulate file names to include the specific arm and subject ID. Also, as we are dealing with longitudinal data, we apply pivot_longer
 ```{r}
-pro2_df %>% 
+pro2_df_tidy = 
+  pro2_df %>% 
   mutate(file = str_replace(file, "\\..*", "")) %>% 
-  separate(file, c("arm", "study_id"), sep = "_") %>% 
   unnest(data) %>% 
   pivot_longer(week_1:week_8,
                names_to = "time",
                values_to = "obs_data") 
+  
+```
 
-  
-  
+##Plotting a spaghetti plot 
+```{r}
+pro2_df_tidy %>% 
+  group_by(file) %>% 
+  ggplot(aes(x = time, y = obs_data, group = file, color = arm)) +
+  geom_line()
 ```
 
 
