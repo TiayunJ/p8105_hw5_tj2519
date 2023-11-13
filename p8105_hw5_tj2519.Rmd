@@ -140,10 +140,13 @@ pro2_df_tidy =
 ##Plotting a spaghetti plot 
 ```{r}
 pro2_df_tidy %>% 
-  group_by(arm_id) %>% 
+  group_by(arm, study_id) %>% 
   ggplot(aes(x = time, y = obs_data, group = arm_id, color = arm)) +
   geom_line()
 ```
+By looking at the plot, we could observe that in the experimental group, the overall trend for each individual is increasing from week1 to week8. In the control group, the participants does not seem to have a clear trend regarding the reported data from week1 to week8. The experimental group participants have a higher reported data than the control group counterparts.
+
+
 
 
 
