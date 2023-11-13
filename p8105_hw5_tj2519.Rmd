@@ -154,6 +154,19 @@ By looking at the plot, we could observe that in the experimental group, the ove
 ## create datasets
 ```{r}
 x_vec = rnorm(30, mean = 0, sd = 5)
+
+t_test_fxn = function(a) {
+  
+  t.test(a, conf.level = 0.95) %>% 
+  broom::tidy() %>% 
+  janitor::clean_names() %>%
+  select(estimate, p_value)
+  
+}
+
+t_test_fxn(x_vec)
+
+
 t.test(x_vec, conf.level = 0.95) %>% 
   broom::tidy() %>% 
   janitor::clean_names() %>%
