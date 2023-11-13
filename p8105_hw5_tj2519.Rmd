@@ -97,6 +97,10 @@ clean_df_nest %>%
 
 # Problem 2
 ```{r}
+pro2_df = 
+  tibble(file = list.files(path = "data"))
+
+
 
 ```
 
