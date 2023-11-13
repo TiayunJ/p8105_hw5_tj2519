@@ -154,8 +154,10 @@ By looking at the plot, we could observe that in the experimental group, the ove
 ## create datasets
 ```{r}
 x_vec = rnorm(30, mean = 0, sd = 5)
-t.test(x_vec) %>% 
-  broom::tidy()
+t.test(x_vec, conf.level = 0.95) %>% 
+  broom::tidy() %>% 
+  janitor::clean_names() %>%
+  select(estimate, p_value)
 
 
 
