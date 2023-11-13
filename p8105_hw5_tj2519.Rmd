@@ -179,7 +179,6 @@ df_mean_0 =
 
 ##For other true mean values (1, 2, 3, 4, 5, 6)
 ```{r}
-
 df_certain_mean = function(true_mean) {
   
   map(1:10, ~ rnorm(30, mean = true_mean, sd = 5))
@@ -187,27 +186,40 @@ df_certain_mean = function(true_mean) {
 }
 
 
-a = 
-  tibble(mean = 1:6) %>% 
-  mutate(data = map(mean, df_certain_mean))
-  
+true_mean_vec = c(1:6)
+list_var = list(c(1:6))
+
+df = df_certain_mean(1) 
 
 
-
-  
-my_list <- list(seq(1, 6))
-my_vector <- unlist(my_list)
-
-
-map(my_vector, df_certain_mean)
-
-
-
-
-
-
+map(df, t_test_fxn)
 
 ```
 
+
+
+
+
+
+
+```{r}
+test = function(true_mean) {
+  
+  c = vector("list", 10)
+
+  for (i in 1:10) {
+  dataset = rnorm(30, mean = true_mean, sd = 5)
+  c[[i]] = dataset
+  }
+  
+  return(c)
+}
+
+
+test(1)
+
+map(c, t_test_fxn)
+
+```
 
 
