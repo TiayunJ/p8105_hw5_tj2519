@@ -101,10 +101,9 @@ clean_df_nest %>%
 pro2_df = 
   tibble(file = list.files(path = "data")) 
 
-
 ```
 
-## Write a function to read the data in each csv filecreate another dataframe to store the data in each csv file, 
+## Write a function to read the data in each csv filecreate another dataframe to store the data in each csv file, and put the data into the existed dataframe
 ```{r}
 read_data = function(df) {
   df_path = paste("data", as.character(df), sep = "/")
@@ -117,20 +116,25 @@ read_data = function(df) {
 data_only = 
   map(pull(pro2_df, file), read_data) %>% 
   bind_rows()
-
-
+    
 pro2_df = 
   pro2_df %>% 
-  mutate(data = map(pull(pro2_df, file), read_data) %>% 
-  bind_rows()
-           )
-
+  mutate(data = data_only)
 
 ```
 
-
+##Tidy the dataframe, f manipulate file names to include the specific arm and subject ID. Also, as we are dealing with longitudinal data, we apply pivot_longer
 ```{r}
+pro2_df %>% 
+  mutate(file = str_replace(file, "\\..*", "")) %>% 
+  separate(file, c("arm", "study_id"), sep = "_") %>% 
+  unnest(data) %>% 
+  pivot_longer(week_1:week_8,
+               names_to = "time",
+               values_to = "obs_data") 
 
+  
+  
 ```
 
 
