@@ -114,9 +114,24 @@ read_data = function(file_path) {
 read_data("data/con_01.csv")
 
 
-table = read_csv("data/con_01.csv") %>% 
+
+read_data = function(df) {
+  df_path = paste("data", as.character(df), sep = "/")
+ 
+  table = read_csv(df_path) %>% 
   janitor::clean_names()
   
+  return(table)
+  
+}
+
+read_data("con_01.csv")
+
+
+
+b = "con_01.csv"
+a = paste("data", as.character(b), sep = "/")
+
 
 ```
 
