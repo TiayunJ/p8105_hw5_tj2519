@@ -24,7 +24,6 @@ options(
 scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 
-set.seed(1)
 ```
 
 # Problem 1
@@ -147,12 +146,18 @@ pro2_df_tidy %>%
   geom_line()
 ```
 
-By looking at the plot, we could observe that in the experimental group, the overall trend for each individual is increasing from week1 to week8. In the control group, the participants does not seem to have a clear trend regarding the reported data from week1 to week8. The experimental group participants have a higher reported data than the control group counterparts.
+By looking at the plot, we could observe that in the experimental group, the overall trend for each individual is increasing from week1 to week8. In the control group, the participants does not seem to have a clear trend regarding the reported data from week1 to week8. The experimental group participants have higher reported data than the control group counterparts.
 
 
 
 # Problem3
+## create datasets
 ```{r}
+x_vec = rnorm(30, mean = 0, sd = 5)
+t.test(x_vec) %>% 
+  broom::tidy()
+
+
 
 ```
 
