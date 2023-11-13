@@ -96,12 +96,16 @@ clean_df_nest %>%
 
 
 # Problem 2
-## readin the names of all csv files
+## readin the names of all csv files, store the names in a dataframe
 ```{r}
 pro2_df = 
   tibble(file = list.files(path = "data")) 
 
 
+```
+
+## Write a function to read the data in each csv filecreate another dataframe to store the data in each csv file, 
+```{r}
 read_data = function(df) {
   df_path = paste("data", as.character(df), sep = "/")
  
@@ -115,7 +119,20 @@ data_only =
   bind_rows()
 
 
+pro2_df = 
+  pro2_df %>% 
+  mutate(data = map(pull(pro2_df, file), read_data) %>% 
+  bind_rows()
+           )
+
+
 ```
+
+
+```{r}
+
+```
+
 
 
 
