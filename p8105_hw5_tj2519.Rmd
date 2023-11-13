@@ -102,11 +102,21 @@ pro2_df =
   tibble(file = list.files(path = "data"))
 
 
-demo_data = 
-  read_csv("data/con_01.csv") %>% 
+read_data = function(file_path) {
+ 
+  table = read_csv(file_path) %>% 
   janitor::clean_names()
+  
+  return(table)
+  
+}
+
+read_data("data/con_01.csv")
 
 
+table = read_csv("data/con_01.csv") %>% 
+  janitor::clean_names()
+  
 
 ```
 
