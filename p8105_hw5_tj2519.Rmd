@@ -4,7 +4,7 @@ output: github_document
 date: "2023-11-08"
 ---
 
-# Problem 0: load library
+# Problem 0: load library and some initial setup
 ```{r}
 library(tidyverse)
 
@@ -23,6 +23,8 @@ options(
 
 scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
+
+set.seed(1)
 ```
 
 # Problem 1
@@ -104,7 +106,7 @@ pro2_df =
 ```
 
 ## Write a function to read the data in each csv filecreate another dataframe to store the data in each csv file, and put the data into the existed dataframe
-```{r}
+```{r message = FALSE}
 read_data = function(df) {
   df_path = paste("data", as.character(df), sep = "/")
  
@@ -144,9 +146,15 @@ pro2_df_tidy %>%
   ggplot(aes(x = time, y = obs_data, group = arm_id, color = arm)) +
   geom_line()
 ```
+
 By looking at the plot, we could observe that in the experimental group, the overall trend for each individual is increasing from week1 to week8. In the control group, the participants does not seem to have a clear trend regarding the reported data from week1 to week8. The experimental group participants have a higher reported data than the control group counterparts.
 
 
+
+# Problem3
+```{r}
+
+```
 
 
 
