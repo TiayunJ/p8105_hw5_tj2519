@@ -179,27 +179,9 @@ df_mean_0 =
 
 ##For other true mean values (1, 2, 3, 4, 5, 6)
 ```{r}
-df_certain_mean = function(true_mean) {
-  
-  map(1:10, ~ rnorm(30, mean = true_mean, sd = 5))
-  
-}
-
-
-true_mean_vec = c(1:6)
-list_var = list(c(1:6))
-
-df = df_certain_mean(1) 
-
-
-map(df, t_test_fxn)
-
-```
-
-```{r}
 return_est_p = function(true_mean) {
   
-  map(1:10, ~ rnorm(30, mean = true_mean, sd = 5)) %>% 
+  map(1:5000, ~ rnorm(30, mean = true_mean, sd = 5)) %>% 
     map(., t_test_fxn) %>% 
     bind_rows()
   
