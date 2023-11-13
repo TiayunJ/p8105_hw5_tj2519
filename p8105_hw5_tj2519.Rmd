@@ -96,9 +96,15 @@ clean_df_nest %>%
 
 
 # Problem 2
+## readin the names of all csv files
 ```{r}
 pro2_df = 
   tibble(file = list.files(path = "data"))
+
+
+demo_data = 
+  read_csv("data/con_01.csv") %>% 
+  janitor::clean_names()
 
 
 
