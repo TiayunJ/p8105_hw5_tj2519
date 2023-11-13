@@ -168,12 +168,6 @@ t_test_fxn(x_vec)
 
 
 
-output = vector("list", length = 5000)
-
-for (i in 1:5000) {
-  output[[i]] = t_test_fxn(x_vec)
-}
-
 ```
 
 
