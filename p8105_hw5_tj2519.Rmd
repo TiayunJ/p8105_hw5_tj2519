@@ -99,7 +99,7 @@ clean_df_nest %>%
 ## readin the names of all csv files
 ```{r}
 pro2_df = 
-  tibble(file = list.files(path = "data"))
+  tibble(file = list.files(path = "data")) 
 
 
 read_data = function(df) {
@@ -108,14 +108,11 @@ read_data = function(df) {
   read_csv(df_path) %>% 
   janitor::clean_names()
 
-  
 }
 
-read_data("con_02.csv")
-
-
-
-map(pro2_df$file, read_data)
+data_only = 
+  map(pull(pro2_df, file), read_data) %>% 
+  bind_rows()
 
 
 ```
