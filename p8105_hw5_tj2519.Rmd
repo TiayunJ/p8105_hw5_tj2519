@@ -173,27 +173,33 @@ for (i in 1:5000) {
 
 df_mean_0 = 
   map(output, t_test_fxn) %>% 
-  bind_rows()
-
+  bind_rows() %>% 
+  mutate(a = 0) %>% 
+  select(a, everything())
+ 
 ```
 
 ##For other true mean values (1, 2, 3, 4, 5, 6)
 ```{r}
 return_est_p = function(true_mean) {
   
-  map(1:5000, ~ rnorm(30, mean = true_mean, sd = 5)) %>% 
+    map(1:5000, ~ rnorm(30, mean = true_mean, sd = 5)) %>% 
     map(., t_test_fxn) %>% 
     bind_rows()
   
 }
 
-my_tibble = 
+df_one_to_six = 
   tibble(a = 1:6) %>% 
   mutate(data = map(a, return_est_p)) %>% 
   unnest(data) %>% 
-  filter(p_value < 0.05) %>% view()
-
-
+  view()
 ```
 
+
+##Join the tibble with 0 as population mean
+```{r}
+df_complete = 
+  bind_rows(df_mean_0, df_one_to_six)
+```
 
