@@ -215,3 +215,20 @@ df_complete %>%
        y = "Percent of rejecting null")
 ```
 
+This plot show the proportion of rejecting the null hypothesis with each true mean (from 0 to 6). Larger true mean (farther away from the null value) - larger effect size means that we are more likely to reject the null hypothesis. Hence, larger effect size is associated with higher power.
+
+
+## Second Plot
+```{r}
+df_complete %>% 
+  group_by(a) %>% 
+  filter(p_value < 0.05) %>% 
+  summarize(avg = mean(estimate)) %>% 
+  ggplot(aes(x = a, y = avg, color = a)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "The average estimates of observations where null hypothesis is rejected",
+       x = "True mean value",
+       y = "average estiamte")
+```
+According to the plot, excluding 0, 
