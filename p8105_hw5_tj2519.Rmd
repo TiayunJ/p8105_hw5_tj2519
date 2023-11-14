@@ -196,10 +196,22 @@ df_one_to_six =
   view()
 ```
 
-
 ##Join the tibble with 0 as population mean
 ```{r}
 df_complete = 
   bind_rows(df_mean_0, df_one_to_six)
+```
+
+## First Plot
+```{r}
+df_complete %>% 
+  group_by(a) %>% 
+  summarize(rej = sum(p_value < 0.05), 
+            total = n()) %>% 
+  ggplot(aes(x = a, y = rej/total, fill = a)) +
+  geom_bar(stat = "identity", width = 0.5) +
+  labs(title = "The proportion of rejecting the null hypothesis with each true mean",
+       x = "True mean value",
+       y = "Percent of rejecting null")
 ```
 
