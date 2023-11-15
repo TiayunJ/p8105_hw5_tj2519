@@ -223,7 +223,6 @@ This plot show the proportion of rejecting the null hypothesis with each true me
 ```{r}
 df_complete %>% 
   group_by(a) %>% 
-  filter(p_value < 0.05) %>% 
   summarize(avg = mean(estimate)) %>% 
   ggplot(aes(x = a, y = avg, color = a)) +
   geom_line() +
@@ -232,9 +231,9 @@ df_complete %>%
        x = "True mean value",
        y = "average estiamte")
 
-
 df_complete %>% 
   group_by(a) %>% 
+  filter(p_value < 0.05) %>% 
   summarize(avg = mean(estimate)) %>% 
   ggplot(aes(x = a, y = avg, color = a)) +
   geom_line() +
@@ -242,5 +241,6 @@ df_complete %>%
   labs(title = "The average estimates of observations where null hypothesis is rejected",
        x = "True mean value",
        y = "average estiamte")
+"The average estimates of all observations"
 ```
 According to the plot, except for 0, the average value of the estimates in samples for which the null was rejected is getting closer and closer to the true value as the true mean is getting larger. This occurs because the effect size is getting larger.
