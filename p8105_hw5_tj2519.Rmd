@@ -208,8 +208,9 @@ df_complete %>%
   group_by(a) %>% 
   summarize(rej = sum(p_value < 0.05), 
             total = n()) %>% 
-  ggplot(aes(x = a, y = rej/total, fill = a)) +
-  geom_bar(stat = "identity", width = 0.5) +
+  ggplot(aes(x = a, y = rej/total, color = a)) +
+  geom_line() +
+  geom_point() +
   labs(title = "The proportion of rejecting the null hypothesis with each true mean",
        x = "True mean value",
        y = "Percent of rejecting null")
@@ -223,6 +224,17 @@ This plot show the proportion of rejecting the null hypothesis with each true me
 df_complete %>% 
   group_by(a) %>% 
   filter(p_value < 0.05) %>% 
+  summarize(avg = mean(estimate)) %>% 
+  ggplot(aes(x = a, y = avg, color = a)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "The average estimates of all observations",
+       x = "True mean value",
+       y = "average estiamte")
+
+
+df_complete %>% 
+  group_by(a) %>% 
   summarize(avg = mean(estimate)) %>% 
   ggplot(aes(x = a, y = avg, color = a)) +
   geom_line() +
